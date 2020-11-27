@@ -5,6 +5,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Component;
 
+import twitter4j.MediaEntity;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
 
@@ -44,5 +45,25 @@ public class TwitterFunctions {
 	      .collect(Collectors.toList());
 	}
 	
+	/**
+	 * obtener el media de un timeline
+	 * 
+	 * REVISAR!
+	 * 
+	 * @throws TwitterException
+	 */
+	public void getMediaFromTimeline(String userId) throws TwitterException {
+
+		Twitter twitter = TwitterInstance.getTwitterinstance();
+
+		List<MediaEntity[]> mediaEntities = twitter.getUserTimeline(userId)
+				.stream()
+				.map(item -> item.getMediaEntities())
+				.collect(Collectors.toList());
+
+		System.out.println("Media obtenida, Largo [" + mediaEntities.size() + "]");
+
+	}
+
 }
 
