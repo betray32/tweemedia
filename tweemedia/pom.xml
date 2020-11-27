@@ -25,17 +25,11 @@
 			<artifactId>spring-boot-starter</artifactId>
 		</dependency>
 
-		<!-- https://mvnrepository.com/artifact/org.springframework.social/spring-social-twitter -->
+		<!-- https://mvnrepository.com/artifact/org.twitter4j/twitter4j-stream -->
 		<dependency>
-			<groupId>org.springframework.social</groupId>
-			<artifactId>spring-social-twitter</artifactId>
-			<version>1.1.2.RELEASE</version>
-		</dependency>
-
-		<!-- https://mvnrepository.com/artifact/com.github.ben-manes.caffeine/caffeine -->
-		<dependency>
-			<groupId>com.github.ben-manes.caffeine</groupId>
-			<artifactId>caffeine</artifactId>
+			<groupId>org.twitter4j</groupId>
+			<artifactId>twitter4j-stream</artifactId>
+			<version>4.0.7</version>
 		</dependency>
 
 		<dependency>
