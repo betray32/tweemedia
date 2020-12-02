@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 import org.springframework.stereotype.Component;
 
 import twitter4j.MediaEntity;
+import twitter4j.Paging;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
 
@@ -48,21 +49,41 @@ public class TwitterFunctions {
 	/**
 	 * obtener el media de un timeline
 	 * 
-	 * REVISAR!
-	 * 
 	 * @throws TwitterException
 	 */
-	public void getMediaFromTimeline(String userId) throws TwitterException {
+	public List<MediaEntity[]> getMediaFromTimeline(String userId) throws TwitterException {
 
+		List<MediaEntity[]> mediaEntities = null;
 		Twitter twitter = TwitterInstance.getTwitterinstance();
 
-		List<MediaEntity[]> mediaEntities = twitter.getUserTimeline(userId)
+		mediaEntities = twitter.getUserTimeline(userId)
 				.stream()
 				.map(item -> item.getMediaEntities())
 				.collect(Collectors.toList());
 
 		System.out.println("Media obtenida, Largo [" + mediaEntities.size() + "]");
+		return mediaEntities;
+	}
+	
+	/**
+	 * obtener el media de un timeline
+	 * 
+	 * @throws TwitterException
+	 */
+	public List<MediaEntity[]> getMediaFromTimeline(String userId, int cantidadRegistros) throws TwitterException {
 
+		List<MediaEntity[]> mediaEntities = null;
+		Twitter twitter = TwitterInstance.getTwitterinstance();
+		Paging p = new Paging();
+		p.setCount(cantidadRegistros);
+
+		mediaEntities = twitter.getUserTimeline(userId, p)
+				.stream()
+				.map(item -> item.getMediaEntities())
+				.collect(Collectors.toList());
+
+		System.out.println("Media obtenida, Largo [" + mediaEntities.size() + "]");
+		return mediaEntities;
 	}
 
 }
