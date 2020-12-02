@@ -27,7 +27,17 @@ public class Utiles {
 	public static int urlToFile(String url, String path) {
 		try {
 
-			FileUtils.copyURLToFile(new URL(url), new File(path + "1.jpg"), 10, 10);
+			String nombreArchivo = url.substring(url.lastIndexOf("/") + 1);
+
+			/*
+			 * Se debe de validar que el ultimo caracter debe de ser un slash
+			 */
+			String validarUltimoCaracter = path.substring(path.length() - 1);
+			if ( !"/".equalsIgnoreCase(validarUltimoCaracter) ) {
+				path = path + "/";
+			}
+
+			FileUtils.copyURLToFile(new URL(url), new File(path + nombreArchivo));
 			return 1;
 
 		} catch (MalformedURLException e) {

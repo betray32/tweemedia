@@ -57,19 +57,19 @@ public class CommandLine implements CommandLineRunner {
 
 			System.out.println("--------------------------");
 			System.out.println("Directorio de Descarga");
-			String directorio = scanner.nextLine();
+			String directorio = scanner.next();
 
 			System.out.println("--------------------------");
 			System.out.println("Cantidad de Registros");
-			String cantidadRegistros = scanner.nextLine();
+			String cantidadRegistros = scanner.next();
 
 			System.out.println("--------------------------");
 			System.out.println("Descargar Fotos?");
-			String fotos = scanner.nextLine();
+			String fotos = scanner.next();
 
 			System.out.println("--------------------------");
 			System.out.println("Descargar Videos?");
-			String videos = scanner.nextLine();
+			String videos = scanner.next();
 
 			scanner.close();
 			twitter.guardarMedia(fotos, videos, perfil, directorio, cantidadRegistros);

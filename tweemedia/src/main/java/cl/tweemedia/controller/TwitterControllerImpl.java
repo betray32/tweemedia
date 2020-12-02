@@ -30,7 +30,8 @@ public class TwitterControllerImpl implements TwitterController {
 	private TwitterFunctions twitter;
 
 	@Override
-	public boolean guardarMedia(String fotos, String videos, String perfil, String rutaDirectorio, String cantidadRegistros) {
+	public boolean guardarMedia(String fotos, String videos, String perfil, String rutaDirectorio,
+			String cantidadRegistros) {
 
 		ResponseList<Status> mediaList = null;
 
@@ -58,28 +59,35 @@ public class TwitterControllerImpl implements TwitterController {
 
 		System.out.println("Cantidad de Fotos Encontradas [" + lFotos.size() + "]");
 		System.out.println("Cantidad de Videos Encontrados [" + lVideos.size() + "]");
-		System.out.println("Cantidad total de medios [" + (lFotos.size() + lVideos.size()) + "]");
+		System.out.println("Cantidad Total de Medios [" + (lFotos.size() + lVideos.size()) + "]");
 
 		System.out.println("Escribiendo en disco...");
 		if ("1".equals(fotos)) {
+			System.out.println("******************");
+			System.out.println("Descargando Fotos");
 			for (MediaEntity f : lFotos) {
 				String urlFoto = f.getMediaURL();
-				System.out.println("Url de la foto: " + urlFoto);
+				System.out.println("URL [" + urlFoto + "]");
 				Utiles.urlToFile(urlFoto, rutaDirectorio);
 			}
+			System.out.println("******************");
 		}
 
 		if ("1".equals(videos)) {
+			System.out.println("******************");
+			System.out.println("Descargando Videos");
 			for (MediaEntity v : lVideos) {
 				Variant[] variantesVideo = v.getVideoVariants();
 				Variant mejorCalidad = variantesVideo[v.getVideoVariants().length - 1];
 				String urlVideo = mejorCalidad.getUrl().substring(0, mejorCalidad.getUrl().indexOf("?"));
-				System.out.println("Url del video: " + urlVideo);
+				System.out.println("URL [" + urlVideo + "]");
 				Utiles.urlToFile(urlVideo, rutaDirectorio);
 			}
+			System.out.println("******************");
 		}
 
-		return false;
+		System.out.println("Procesamiento Finalizado Exitosamente");
+		return true;
 	}
 
 	/**
@@ -91,7 +99,6 @@ public class TwitterControllerImpl implements TwitterController {
 	 */
 	private void filtroMedia(ResponseList<Status> mediaList, List<MediaEntity> lFotos, List<MediaEntity> lVideos) {
 		for (Status media : mediaList) {
-
 			MediaEntity[] mediaEntities = media.getMediaEntities();
 			for (MediaEntity entity : mediaEntities) {
 
