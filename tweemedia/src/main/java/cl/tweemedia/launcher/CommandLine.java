@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 import cl.tweemedia.controller.TwitterController;
+import cl.tweemedia.util.ConstantesProp;
 
 /**
  * Se ejecuta automaticamente
@@ -21,6 +22,9 @@ public class CommandLine implements CommandLineRunner {
 
 	@Autowired
 	private TwitterController twitter;
+
+	@Autowired
+	private ConstantesProp prop;
 
 	/**
 	 * Automatico
@@ -36,9 +40,11 @@ public class CommandLine implements CommandLineRunner {
 
 		System.out.println("Indique la Opcion Deseada");
 		System.out.println("1. Ingreso con Teclado");
-		System.out.println("2. Seteo en archivo de configuracion");
+		System.out.println("2. Seteo en archivo de Configuracion");
 
 		int opcion = scanner.nextInt();
+
+		System.out.println("--------------------------");
 
 		switch (opcion) {
 		case 1:
@@ -72,6 +78,17 @@ public class CommandLine implements CommandLineRunner {
 
 		case 2:
 
+			System.out.println("Inicializando Flujo en Base a Archivo de Properties");
+			System.out.println("Desplegando propiedades");
+			System.out.println("--------------------------");
+			System.out.println("Perfil = " + prop.perfil);
+			System.out.println("Directorio de Descarga = " + prop.directorio);
+			System.out.println("Registros Deseados = " + prop.nroregistros);
+			System.out.println("Fotos = " + prop.fotos);
+			System.out.println("Videos = " + prop.videos);
+			System.out.println("--------------------------");
+
+			twitter.guardarMedia(prop.fotos, prop.videos, prop.perfil, prop.directorio, prop.nroregistros);
 			break;
 
 		default:

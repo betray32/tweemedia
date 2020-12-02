@@ -7,6 +7,8 @@ import org.springframework.stereotype.Component;
 
 import twitter4j.MediaEntity;
 import twitter4j.Paging;
+import twitter4j.ResponseList;
+import twitter4j.Status;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
 
@@ -18,20 +20,18 @@ import twitter4j.TwitterException;
  */
 @Component
 public class TwitterFunctions {
-	
+
 	/**
 	 * Obtener mi timeline
 	 * 
 	 * @return
 	 */
 	public List<String> getMyTimeLine() throws TwitterException {
-	    Twitter twitter = TwitterInstance.getTwitterinstance();
-	    
-	    return twitter.getHomeTimeline().stream()
-	      .map(item -> item.getText())
-	      .collect(Collectors.toList());
+		Twitter twitter = TwitterInstance.getTwitterinstance();
+
+		return twitter.getHomeTimeline().stream().map(item -> item.getText()).collect(Collectors.toList());
 	}
-	
+
 	/**
 	 * Obtener el timeline especifico
 	 * 
@@ -39,13 +39,11 @@ public class TwitterFunctions {
 	 * @throws TwitterException
 	 */
 	public List<String> getTimeLine(String userId) throws TwitterException {
-	    Twitter twitter = TwitterInstance.getTwitterinstance();
+		Twitter twitter = TwitterInstance.getTwitterinstance();
 
-	    return twitter.getUserTimeline(userId).stream()
-	      .map(item -> item.getText())
-	      .collect(Collectors.toList());
+		return twitter.getUserTimeline(userId).stream().map(item -> item.getText()).collect(Collectors.toList());
 	}
-	
+
 	/**
 	 * obtener el media de un timeline
 	 * 
@@ -56,35 +54,26 @@ public class TwitterFunctions {
 		List<MediaEntity[]> mediaEntities = null;
 		Twitter twitter = TwitterInstance.getTwitterinstance();
 
-		mediaEntities = twitter.getUserTimeline(userId)
-				.stream()
-				.map(item -> item.getMediaEntities())
+		mediaEntities = twitter.getUserTimeline(userId).stream().map(item -> item.getMediaEntities())
 				.collect(Collectors.toList());
 
 		System.out.println("Media obtenida, Largo [" + mediaEntities.size() + "]");
 		return mediaEntities;
 	}
-	
+
 	/**
 	 * obtener el media de un timeline
 	 * 
 	 * @throws TwitterException
 	 */
-	public List<MediaEntity[]> getMediaFromTimeline(String userId, int cantidadRegistros) throws TwitterException {
+	public ResponseList<Status> getMediaFromTimeline(String userId, int cantidadRegistros) throws TwitterException {
 
-		List<MediaEntity[]> mediaEntities = null;
+		System.out.println("Consultando informacion desde origen...");
 		Twitter twitter = TwitterInstance.getTwitterinstance();
 		Paging p = new Paging();
 		p.setCount(cantidadRegistros);
 
-		mediaEntities = twitter.getUserTimeline(userId, p)
-				.stream()
-				.map(item -> item.getMediaEntities())
-				.collect(Collectors.toList());
-
-		System.out.println("Media obtenida, Largo [" + mediaEntities.size() + "]");
-		return mediaEntities;
+		return twitter.getUserTimeline(userId, p);
 	}
 
 }
-
