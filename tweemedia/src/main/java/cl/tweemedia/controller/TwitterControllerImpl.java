@@ -78,7 +78,7 @@ public class TwitterControllerImpl implements TwitterController {
 			System.out.println("Descargando Videos");
 			for (MediaEntity v : lVideos) {
 				Variant[] variantesVideo = v.getVideoVariants();
-				Variant mejorCalidad = variantesVideo[v.getVideoVariants().length - 1];
+				Variant mejorCalidad = variantesVideo[0];
 				String urlVideo = mejorCalidad.getUrl().substring(0, mejorCalidad.getUrl().indexOf("?"));
 				System.out.println("URL [" + urlVideo + "]");
 				Utiles.urlToFile(urlVideo, rutaDirectorio);
