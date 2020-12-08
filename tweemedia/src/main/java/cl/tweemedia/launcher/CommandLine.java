@@ -35,40 +35,56 @@ public class CommandLine implements CommandLineRunner {
 		Scanner scanner = new Scanner(System.in);
 
 		System.out.println("--------------------------");
-		System.out.println("Inicializando...");
-		System.out.println("Bienvenido a Tweemedia");
+		System.out.println("Initializing...");
+		System.out.println("Welcome to Tweemedia!");
 
-		System.out.println("Indique la Opcion Deseada");
-		System.out.println("1. Ingreso con Teclado");
-		System.out.println("2. Seteo en archivo de Configuracion");
+		System.out.println("Choose your preference");
+		System.out.println("1. Configure with file (application.properties)");
+		System.out.println("2. Keyboard input");
 
 		int opcion = scanner.nextInt();
 
 		System.out.println("--------------------------");
 
 		switch (opcion) {
+		
 		case 1:
 
-			System.out.println("Ingrese las opciones deseadas");
+			System.out.println("Initializing with Propertie File");
+			System.out.println("Showing Sets");
+			System.out.println("--------------------------");
+			System.out.println("Profile ID = " + prop.perfil);
+			System.out.println("Download Folder = " + prop.directorio);
+			System.out.println("Records = " + prop.nroregistros);
+			System.out.println("Photos ? (1 for yes, 2 for no) = " + prop.fotos);
+			System.out.println("Videos ? (1 for yes, 2 for no) = " + prop.videos);
+			System.out.println("--------------------------");
+
+			twitter.guardarMedia(prop.fotos, prop.videos, prop.perfil, prop.directorio, prop.nroregistros);
+			break;
+			
+		case 2:
+
+			System.out.println("Please, input your options");
 
 			System.out.println("--------------------------");
-			System.out.println("Perfil de Twitter");
+			System.out.println("Twitter ID");
 			String perfil = scanner.next();
 
 			System.out.println("--------------------------");
-			System.out.println("Directorio de Descarga");
+			System.out.println("Download Folder");
 			String directorio = scanner.next();
 
 			System.out.println("--------------------------");
-			System.out.println("Cantidad de Registros");
+			System.out.println("How Many Records?");
 			String cantidadRegistros = scanner.next();
 
 			System.out.println("--------------------------");
-			System.out.println("Descargar Fotos?");
+			System.out.println("Include Photos? (1 for yes, 2 for no)");
 			String fotos = scanner.next();
 
 			System.out.println("--------------------------");
-			System.out.println("Descargar Videos?");
+			System.out.println("Include Videos? (1 for yes, 2 for no)");
 			String videos = scanner.next();
 
 			scanner.close();
@@ -76,27 +92,12 @@ public class CommandLine implements CommandLineRunner {
 
 			break;
 
-		case 2:
-
-			System.out.println("Inicializando Flujo en Base a Archivo de Properties");
-			System.out.println("Desplegando propiedades");
-			System.out.println("--------------------------");
-			System.out.println("Perfil = " + prop.perfil);
-			System.out.println("Directorio de Descarga = " + prop.directorio);
-			System.out.println("Registros Deseados = " + prop.nroregistros);
-			System.out.println("Fotos = " + prop.fotos);
-			System.out.println("Videos = " + prop.videos);
-			System.out.println("--------------------------");
-
-			twitter.guardarMedia(prop.fotos, prop.videos, prop.perfil, prop.directorio, prop.nroregistros);
-			break;
-
 		default:
-			System.err.println("Opcion Incorrecta");
+			System.err.println("Incorrect Option");
 			break;
 		}
 
-		System.out.println("Programa Finalizado");
+		System.out.println("Finished");
 
 	}
 

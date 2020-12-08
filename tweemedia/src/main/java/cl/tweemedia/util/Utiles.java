@@ -41,9 +41,9 @@ public class Utiles {
 			return 1;
 
 		} catch (MalformedURLException e) {
-			System.err.println("Error al copiar el archivo, Detalle > " + e.getMessage());
+			System.err.println("Error when downloading and writing, Detail > " + e.getMessage());
 		} catch (IOException e) {
-			System.err.println("Error al copiar el archivo, Detalle > " + e.getMessage());
+			System.err.println("Error when downloading and writing, Detail > " + e.getMessage());
 			e.printStackTrace();
 		}
 
