@@ -41,30 +41,30 @@ public class TwitterControllerImpl implements TwitterController {
 		try {
 			mediaList = twitter.getMediaFromTimeline(perfil, Integer.parseInt(cantidadRegistros));
 		} catch (TwitterException e) {
-			System.err.println("Ha fallado al momento de obtener la info de twitter, Detalle > " + e.getMessage());
+			System.err.println("Program has failed when retrieven info from twitter, Detail > " + e.getMessage());
 		}
 
 		if (mediaList == null) {
-			System.err.println("Error al obtener la informacion desde el origen, abortando.");
+			System.err.println("Error When connecting to twitter, Aborting...");
 			return false;
 		}
 		/*****************************************/
 
-		System.out.println("Data obtenida correctamente");
-		System.out.println("Filtrando archivos de medios");
+		System.out.println("Data OK!");
+		System.out.println("Filtering Media Files...");
 
 		List<MediaEntity> lFotos = new ArrayList<>();
 		List<MediaEntity> lVideos = new ArrayList<>();
 		filtroMedia(mediaList, lFotos, lVideos);
 
-		System.out.println("Cantidad de Fotos Encontradas [" + lFotos.size() + "]");
-		System.out.println("Cantidad de Videos Encontrados [" + lVideos.size() + "]");
-		System.out.println("Cantidad Total de Medios [" + (lFotos.size() + lVideos.size()) + "]");
+		System.out.println("Photos [" + lFotos.size() + "] Files");
+		System.out.println("Videos [" + lVideos.size() + "] Files");
+		System.out.println("Total of Media Found [" + (lFotos.size() + lVideos.size()) + "] Files");
 
-		System.out.println("Escribiendo en disco...");
+		System.out.println("Writing in disk...");
 		if ("1".equals(fotos)) {
 			System.out.println("******************");
-			System.out.println("Descargando Fotos");
+			System.out.println("Downloading Photos");
 			for (MediaEntity f : lFotos) {
 				String urlFoto = f.getMediaURL();
 				System.out.println("URL [" + urlFoto + "]");
@@ -75,7 +75,7 @@ public class TwitterControllerImpl implements TwitterController {
 
 		if ("1".equals(videos)) {
 			System.out.println("******************");
-			System.out.println("Descargando Videos");
+			System.out.println("Downloading Videos");
 			for (MediaEntity v : lVideos) {
 				Variant[] variantesVideo = v.getVideoVariants();
 				Variant mejorCalidad = variantesVideo[0];
@@ -86,7 +86,6 @@ public class TwitterControllerImpl implements TwitterController {
 			System.out.println("******************");
 		}
 
-		System.out.println("Procesamiento Finalizado Exitosamente");
 		return true;
 	}
 
